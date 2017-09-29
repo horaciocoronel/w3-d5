@@ -1,0 +1,198 @@
+Let's start by figuring out how many dinosaurs we have. Count the number of dinosaurs.
+SELECT COUNT (name) FROM dinos;
+count
+-------
+  331
+(1 row
+
+
+We want to open up our own version of Jurassic Park, but this time only with dinosaurs who are actually from the Jurassic period. Find all the dinosaurs from the Jurassic period.
+
+SELECT name FROM dinos where period = 'Jurassic';
+
+name
+---------------------
+Yuanmousaurus
+Yinlong
+Yingshanosaurus
+Yimenosaurus
+Yangchuanosaurus
+Yandusaurus
+Vulcanodon
+Tuojiangosaurus
+Torvosaurus
+Yunnanosaurus
+Sinraptor
+Stegosaurus
+Seismosaurus
+Segisaurus
+Scutellosaurus
+Scelidosaurus
+Saurophaganax
+Sarcosaurus
+Shunosaurus
+Rhoetosaurus
+Poekilopleuron
+Podokesaurus
+Piatnitzkysaurus
+Proceratosaurus
+Patagosaurus
+Pantydraco
+Datousaurus
+Ornitholestes
+Omeisaurus
+Nqwebasaurus
+Monolophosaurus
+Othnielia
+Megalosaurus
+Massospondylus
+Marshosaurus
+Mamenchisaurus
+Lufengosaurus
+Lophostropheus
+Lexovisaurus
+Metriacanthosaurus
+Lesothosaurus
+Kentrosaurus
+Juravenator
+Jingshanosaurus
+Janenschia
+Huayangosaurus
+Heterodontosaurus
+Kotasaurus
+Guanlong
+Giraffatitan
+Gasosaurus
+Gargoyleosaurus
+Eustreptospondylus
+Europasaurus
+Haplocanthosaurus
+Emausaurus
+Euhelopus
+Elaphrosaurus
+Dubreuillosaurus
+Dryosaurus
+Diplodocus
+Dilophosaurus
+Dicraeosaurus
+Cryolophosaurus
+Compsognathus
+Coelurus
+Chungkingosaurus
+Chirostenotes
+Chinshakiangosaurus
+Chaoyangsaurus
+Dacentrurus
+Cetiosaurus
+Cetiosauriscus
+Ceratosaurus
+Chialingosaurus
+Brachytrachelopan
+Brachiosaurus
+Bellusaurus
+Barosaurus
+Barapasaurus
+Camarasaurus
+Anchisaurus
+Amygdalodon
+Ammosaurus
+Allosaurus
+Agilisaurus
+Apatosaurus
+Lapparentosaurus
+Hesperosaurus
+Camptosaurus
+Aardonyx
+Archaeopteryx
+(92 rows)
+
+Jurassic Park was a huge success for us. Now we want to open up a sequel park: Cretaceous Park. This time though, we're a little more organized, and we want to know how much space all these dinosaurs are going to take up. Find the total sum length of all the dinosaurs from the Cretaceous period.
+
+SELECT SUM(length) FROM dinos where period = 'Cretaceous';
+
+sum
+---------
+1366.45
+(1 row)
+
+
+Great news! Our board of investors recently secured us a large island where we can put all the dinosaurs from both Jurassic Park and Cretaceous Park. This new park will be called Juraceous Park, which according to our focus groups really rolls off the tongue. Find all the dinosaurs from either the Jurassic OR Cretaceous periods, and order them by their species name alphabetically.
+
+SELECT name, period FROM dinos WHERE period = 'Jurassic' OR period = 'Cretaceous' ORDER BY name;
+
+name           |   period
+-------------------------+------------
+Aardonyx                | Jurassic
+Abelisaurus             | Cretaceous
+Achelousaurus           | Cretaceous
+Achillobator            | Cretaceous
+Acrocanthosaurus        | Cretaceous
+Aegyptosaurus           | Cretaceous
+Afrovenator             | Cretaceous
+Agilisaurus             | Jurassic
+Alamosaurus             | Cretaceous
+Albertaceratops         | Cretaceous
+Albertosaurus           | Cretaceous
+Alectrosaurus           | Cretaceous
+Alioramus               | Cretaceous
+Allosaurus              | Jurassic
+Alvarezsaurus           | Cretaceous
+Amargasaurus            | Cretaceous
+Ammosaurus              | Jurassic
+Ampelosaurus            | Cretaceous
+Amygdalodon             | Jurassic
+Wuerhosaurus            | Cretaceous
+Yandusaurus             | Jurassic
+Yangchuanosaurus        | Jurassic
+Yimenosaurus            | Jurassic
+Yingshanosaurus         | Jurassic
+Yinlong                 | Jurassic
+Yuanmousaurus           | Jurassic
+Yunnanosaurus           | Jurassic
+Zalmoxes                | Cretaceous
+Zephyrosaurus           | Cretaceous
+Zuniceratops            | Cretaceous
+(310 rows)
+
+Saurischians are the "lizard hipped" order of dinosaurs, and one of the two main branches. All carnivorous dinosaurs are Saurischians, but not all Saurischians are carnivorous. Find all the dinosaurs from the t_order Saurischia that are Herbivorous.
+
+SELECT name, t_order FROM dinos WHERE t_order = 'Saurischia';
+
+dinosaurs=# SELECT name, t_order FROM dinos WHERE t_order = 'Saurischia';
+        name         |  t_order
+---------------------+------------
+ Velociraptor        | Saurischia
+ Yuanmousaurus       | Saurischia
+ Yimenosaurus        | Saurischia
+ Yangchuanosaurus    | Saurischia
+ Vulcanodon          | Saurischia
+ Utahraptor          | Saurischia
+ Urbacodon           | Saurischia
+ Unenlagia           | Saurischia
+ Tyrannosaurus       | Saurischia
+ Troodon             | Saurischia
+ Torvosaurus         | Saurischia
+ Yunnanosaurus       | Saurischia
+ Confuciusornis      | Saurischia
+ Argentinosaurus     | Saurischia
+ Acrocanthosaurus    | Saurischia
+ Achillobator        | Saurischia
+ Archaeopteryx       | Saurischia
+ Aegyptosaurus       | Saurischia
+(197 rows)
+
+Dinosaur names are hard to remember. Find the shortest dinosaur, and rename it Shortie.
+SELECT name, LENGTH(name) from dinos ORDER BY name ASC LIMIT 1;
+
+UPDATE dinos SET name = 'Shortie' WHERE name = (SELECT name from dinos ORDER BY LENGTH(name) ASC LIMIT 1);
+
+UPDATE 1
+
+
+It's the first day of Dino School, and we're doing roll call. Find the alphabetically first dinosaur, so we can make sure they're present for class.
+SELECT name FROM dinos ORDER BY name ASC LIMIT 1;
+
+name
+----------
+Aardonyx
+(1 row)
